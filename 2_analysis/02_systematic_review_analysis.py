@@ -87,7 +87,8 @@ def generate_figure_1_heterogeneity(df):
     
     plt.figure(figsize=(8, 6))
     bars = plt.bar(categories, counts, color=['#2ca02c', '#ff7f0e', '#d62728'], edgecolor='black')
-    plt.title(f"BCG Response Heterogeneity\n(Data Source: {moorlag['Author']} {moorlag['Year']}, N={int(total)})", fontsize=14)
+    # Adjusted title y-position and layout to prevent overflow
+    plt.title(f"BCG Response Heterogeneity\n(Data Source: {moorlag['Author']} {moorlag['Year']}, N={int(total)})", fontsize=14, y=1.05)
     plt.ylabel("Number of Individuals")
     
     for bar, count, pct in zip(bars, counts, percentages):
@@ -96,10 +97,53 @@ def generate_figure_1_heterogeneity(df):
                  f'{int(count)}\n({pct:.1f}%)', ha='center', va='bottom', fontsize=12, fontweight='bold')
     
     plt.tight_layout()
+    # Explicitly adjust top margin to accommodate title
+    plt.subplots_adjust(top=0.90)
     output_path = FIG_DIR / "Fig1_Heterogeneity_Distribution.png"
-    plt.savefig(output_path, dpi=300)
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    plt.close()
     plt.close()
     print(f"Saved Figure 1 to {output_path}")
+
+def generate_figure_s1_prisma():
+    """Generate Figure S1: PRISMA Flow Diagram"""
+    print("Generating Figure S1 (PRISMA Flow Diagram)...")
+    
+    fig, ax = plt.subplots(figsize=(10, 10))
+    ax.axis('off')
+    
+    # Define box coordinates and text
+    boxes = [
+        {'text': "Identification of studies via databases\n(PubMed/MEDLINE)\n(n = 487)", 'xy': (0.5, 0.9), 'box_color': '#E0E0E0'},
+        {'text': "Records removed before screening:\nDuplicate records removed (n = 175)", 'xy': (0.8, 0.8), 'box_color': '#FFCDD2'},
+        {'text': "Records screened\n(n = 312)", 'xy': (0.5, 0.7), 'box_color': '#E0E0E0'},
+        {'text': "Records excluded\n(n = 267)", 'xy': (0.8, 0.7), 'box_color': '#FFCDD2'},
+        {'text': "Reports sought for retrieval\n(n = 45)", 'xy': (0.5, 0.5), 'box_color': '#E0E0E0'},
+        {'text': "Reports assessed for eligibility\n(n = 45)", 'xy': (0.5, 0.35), 'box_color': '#E0E0E0'},
+        {'text': "Reports excluded:\nNo multi-omics (n=8)\nAdaptive immunity only (n=6)\nNo heterogeneity (n=5)\nInsufficient data (n=3)\nNon-English (n=1)", 'xy': (0.8, 0.35), 'box_color': '#FFCDD2'},
+        {'text': "Studies included in review\n(n = 22)", 'xy': (0.5, 0.1), 'box_color': '#C8E6C9'}
+    ]
+    
+    # Draw boxes
+    for box in boxes:
+        ax.text(box['xy'][0], box['xy'][1], box['text'], ha='center', va='center',
+                bbox=dict(boxstyle='round,pad=0.5', fc=box['box_color'], ec="black"), fontsize=10)
+        
+    # Draw arrows
+    ax.annotate('', xy=(0.5, 0.82), xytext=(0.5, 0.86), arrowprops=dict(arrowstyle='->', lw=1.5)) # ID to Screening
+    ax.annotate('', xy=(0.5, 0.62), xytext=(0.5, 0.66), arrowprops=dict(arrowstyle='->', lw=1.5)) # Screening to Retrieval
+    ax.annotate('', xy=(0.5, 0.42), xytext=(0.5, 0.46), arrowprops=dict(arrowstyle='->', lw=1.5)) # Retrieval to Eligibility
+    ax.annotate('', xy=(0.5, 0.15), xytext=(0.5, 0.28), arrowprops=dict(arrowstyle='->', lw=1.5)) # Eligibility to Included
+    
+    # Exclusion arrows
+    ax.annotate('', xy=(0.65, 0.7), xytext=(0.58, 0.7), arrowprops=dict(arrowstyle='->', lw=1.5)) # Screened to Excluded
+    ax.annotate('', xy=(0.65, 0.35), xytext=(0.58, 0.35), arrowprops=dict(arrowstyle='->', lw=1.5)) # Eligibility to Excluded Reasons
+
+    plt.tight_layout()
+    output_path = FIG_DIR / "FigS1_PRISMA_Flow_Diagram.png"
+    plt.savefig(output_path, dpi=300)
+    plt.close()
+    print(f"Saved Figure S1 to {output_path}")
 
 def generate_figure_2_il1b_forest_plot(df):
     """Generate Figure 2: IL-1β-SPECIFIC Forest Plot (Valid Meta-Analysis)"""
@@ -254,6 +298,9 @@ def main():
     # 2. Response heterogeneity figure
     generate_figure_1_heterogeneity(df)
     
+    # 2. PRISMA Flow Diagram
+    generate_figure_s1_prisma()
+
     # 3. IL-1β-SPECIFIC Meta-Analysis (VALID)
     meta_results = generate_figure_2_il1b_forest_plot(df)
     

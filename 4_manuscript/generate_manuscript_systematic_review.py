@@ -66,9 +66,9 @@ def main():
     p = doc.add_paragraph()
     p.add_run("Results: ").bold = True
     p.add_run(
-        "Pooled analysis revealed a consistent trimodal distribution of BCG vaccine responses: approximately 30% of individuals exhibited a 'High Responder' phenotype, 40% were 'Moderate Responders', and 30% demonstrated minimal or no trained immunity induction ('Low Responders'). "
-        "Random-effects meta-analysis of IL-1β response as a predictor of trained immunity (3 studies, N=361) yielded a pooled effect size of 1.96 (95% CI: 1.47-2.62), with no significant heterogeneity (I²=0.0%, Cochran's Q=0.20, p=0.907). "
-        "This indicates that baseline or post-vaccination IL-1β production capacity is a robust, consistent predictor of BCG-induced trained immunity across independent cohorts. "
+        "Synthesis of phenotypic data, derived principally from the large 300BCG cohort, revealed a consistent trimodal distribution of BCG vaccine responses: approximately 30% of individuals exhibited a 'High Responder' phenotype, 40% were 'Moderate Responders', and 30% demonstrated minimal or no trained immunity induction ('Low Responders'). "
+        "Random-effects meta-analysis of IL-1β response as a predictor of trained immunity (3 studies, N=361) yielded a pooled effect ratio of 1.96 (95% CI: 1.47-2.62), with no significant heterogeneity (I²=0.0%, Cochran's Q=0.20, p=0.907). "
+        "This indicates that baseline or post-vaccination IL-1β production capacity is a robust functional readout of the trained immunity potential across independent cohorts. "
         "Single-cell transcriptomic analyses further revealed that STAT1 and interferon-responsive gene networks are preferentially activated in high-responding individuals."
     )
     
@@ -193,6 +193,10 @@ def main():
         f"A total of {num_studies} studies meeting all inclusion criteria were included in the final analysis, comprising {total_n} unique individuals (Figure S1)."
     )
     
+    if os.path.exists(FIG_DIR / "FigS1_PRISMA_Flow_Diagram.png"):
+        doc.add_picture(str(FIG_DIR / "FigS1_PRISMA_Flow_Diagram.png"), width=Inches(6))
+        doc.add_paragraph("Figure S1. PRISMA Flow Diagram of study selection.")
+    
     add_heading(doc, "Study Characteristics", 2)
     doc.add_paragraph(
         "Table 1 summarizes the characteristics of included studies. Studies were published between 2012 and 2024, with the majority (n=4) appearing after 2020, "
@@ -202,6 +206,31 @@ def main():
         "Multi-omics platforms included bulk RNA-seq (n=3), single-cell RNA-seq (n=2), ATAC-seq (n=1), ChIP-seq for histone modifications (n=2), "
         "genome-wide DNA methylation arrays (n=1), and targeted metabolomics (n=2)."
     )
+    
+    # Insert Table 1
+    table1_path = BASE_DIR / "3_results/tables/Table1_Included_Studies.csv"
+    if os.path.exists(table1_path):
+        df_t1 = pd.read_csv(table1_path)
+        t1 = doc.add_table(rows=1, cols=6)
+        t1.style = 'Table Grid'
+        hdr_cells = t1.rows[0].cells
+        hdr_cells[0].text = 'Author (Year)'
+        hdr_cells[1].text = 'Journal'
+        hdr_cells[2].text = 'N'
+        hdr_cells[3].text = 'Platform'
+        hdr_cells[4].text = 'Key Finding'
+        hdr_cells[5].text = 'Included in IL-1β Meta?'
+        
+        for index, row in df_t1.iterrows():
+            row_cells = t1.add_row().cells
+            row_cells[0].text = f"{row['Author']} ({row['Year']})"
+            row_cells[1].text = str(row['Journal'])
+            row_cells[2].text = str(int(row['N_Total']))
+            row_cells[3].text = str(row['Platform'])
+            row_cells[4].text = str(row['Key_Finding'])
+            row_cells[5].text = str(row['Include_IL1B_Meta'])
+            
+        doc.add_paragraph("Table 1. Characteristics of included multi-omics studies.")
     
     add_heading(doc, "Response Phenotype Distribution", 2)
     doc.add_paragraph(
@@ -257,11 +286,30 @@ def main():
     add_heading(doc, "Meta-Analysis of IL-1β Response", 2)
     doc.add_paragraph(
         "Random-effects meta-analysis (DerSimonian-Laird method) was performed for IL-1β response as a predictor of trained immunity—the common measurable outcome across eligible studies. "
-        "Three studies (Moorlag 2024 N=323; Arts 2018 N=18; Kleinnijenhuis 2012 N=20) comprising 361 individuals reported IL-1β fold-change or odds ratio data (Figure 2). "
-        "The pooled effect size was 1.96 (95% CI: 1.47-2.62), indicating that individuals with higher IL-1β response have approximately 2-fold greater odds of exhibiting high trained immunity. "
+        "Three studies (Moorlag 2024 N=323; Arts 2018 N=18; Kleinnijenhuis 2012 N=20) comprising 361 individuals reported IL-1β fold-change or odds ratio data (Figure 2, Table 2). "
+        "The pooled effect ratio was 1.96 (95% CI: 1.47-2.62), indicating that individuals with higher IL-1β response have approximately 2-fold greater odds of exhibiting high trained immunity. "
         "Heterogeneity was absent (I²=0.0%), with Cochran's Q=0.20 (p=0.907), demonstrating remarkable consistency across cohorts and platforms. "
         "This finding supports IL-1β as a robust, validated biomarker for BCG vaccine response."
     )
+    
+    # Insert Table 2
+    table2_path = BASE_DIR / "3_results/tables/Table2_IL1B_MetaAnalysis_Summary.csv"
+    if os.path.exists(table2_path):
+        df_t2 = pd.read_csv(table2_path)
+        t2 = doc.add_table(rows=1, cols=3)
+        t2.style = 'Table Grid'
+        hdr_cells2 = t2.rows[0].cells
+        hdr_cells2[0].text = 'Metric'
+        hdr_cells2[1].text = 'Value'
+        hdr_cells2[2].text = '95% CI / Detail'
+        
+        for index, row in df_t2.iterrows():
+            row_cells2 = t2.add_row().cells
+            row_cells2[0].text = str(row['Metric'])
+            row_cells2[1].text = str(row['Value'])
+            row_cells2[2].text = str(row['95% CI'])
+            
+        doc.add_paragraph("Table 2. Summary of IL-1β Meta-Analysis Results.")
     
     # ============ DISCUSSION (~800 words) ============
     add_heading(doc, "Discussion", 1)
@@ -269,7 +317,7 @@ def main():
     doc.add_paragraph(
         "This systematic review and meta-analysis provides the first quantitative synthesis of multi-omics evidence on BCG vaccine response heterogeneity. "
         "Our principal findings are: (1) BCG-induced trained immunity follows a trimodal distribution, with approximately 30% of individuals exhibiting minimal response; "
-        "(2) IL-1β production capacity is a robust, validated predictor of vaccine response (pooled effect 1.96, 95% CI 1.47-2.62); "
+        "(2) IL-1β production capacity serves as a robust functional readout of vaccine response potential (pooled effect ratio 1.96, 95% CI 1.47-2.62); "
         "(3) Remarkably, heterogeneity across independent cohorts was zero (I²=0%), demonstrating unprecedented consistency for a vaccine response biomarker. "
         "Together, these findings establish that BCG response is not random but is biologically predetermined by measurable molecular states."
     )
@@ -377,7 +425,7 @@ def main():
     for i, r in enumerate(references):
         doc.add_paragraph(r)
         
-    output_path = OUTPUT_DIR / "Manuscript_BCG_Systematic_Review_EXPANDED.docx"
+    output_path = OUTPUT_DIR / "Manuscript_BCG_Systematic_Review_FINAL_SUBMISSION_v2.docx"
     doc.save(output_path)
     print(f"EXPANDED Manuscript saved to {output_path}")
     
