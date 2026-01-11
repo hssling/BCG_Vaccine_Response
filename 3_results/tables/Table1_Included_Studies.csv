@@ -1,0 +1,7 @@
+Author,Year,Journal,N_Total,Platform,Key_Finding,Include_IL1B_Meta
+Moorlag et al.,2024,Immunity,323,Multi-omics,Epigenetic predictors of trained immunity,YES
+Koeken et al.,2023,Cell Rep,156,scRNA-seq,Monocyte heterogeneity and STAT1 role,NO
+Bannister et al.,2022,Sci Adv,130,Methylation,Long-term DNA methylation signature (>12mo),NO
+Cirovic et al.,2020,Cell Host Microbe,15,Transcriptomics,HSPC reprogramming in bone marrow,NO
+Arts et al.,2018,Cell Host Microbe,18,Epigenomics,IL-1beta upregulation correlates with protection,YES
+Kleinnijenhuis et al.,2012,PNAS,20,Immunology,NOD2-dependent trained immunity with 2x cytokine increase,YES

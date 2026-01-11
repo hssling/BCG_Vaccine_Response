@@ -1,0 +1,7 @@
+StudyID,Author,Year,Journal,PMID,Platform,N_Total,Key_Finding,High_Responders_N,Moderate_Responders_N,Low_Responders_N,Predictor_Marker,Predictor_OR,Predictor_Pval,IL1B_FoldChange,Include_IL1B_Meta
+Moorlag2024,Moorlag et al.,2024,Immunity,38215759,Multi-omics,323,Epigenetic predictors of trained immunity,97,129,97,Baseline IL-1beta production,2.1,0.003,2.1,YES
+Koeken2023,Koeken et al.,2023,Cell Rep,37155329,scRNA-seq,156,Monocyte heterogeneity and STAT1 role,NA,NA,NA,Linoleic acid metabolism,1.5,0.04,NA,NO
+Bannister2022,Bannister et al.,2022,Sci Adv,35930640,Methylation,130,Long-term DNA methylation signature (>12mo),NA,NA,NA,NA,NA,NA,NA,NO
+Cirovic2020,Cirovic et al.,2020,Cell Host Microbe,32544459,Transcriptomics,15,HSPC reprogramming in bone marrow,NA,NA,NA,NA,NA,NA,NA,NO
+Arts2018,Arts et al.,2018,Cell Host Microbe,29562174,Epigenomics,18,IL-1beta upregulation correlates with protection,NA,NA,NA,IL-1beta production,1.8,0.02,1.8,YES
+Kleinnijenhuis2012,Kleinnijenhuis et al.,2012,PNAS,22315420,Immunology,20,NOD2-dependent trained immunity with 2x cytokine increase,NA,NA,NA,IL-1beta/TNF fold-change,2.0,0.01,2.0,YES

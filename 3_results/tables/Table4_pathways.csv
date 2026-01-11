@@ -1,0 +1,9 @@
+Pathway,Direction,FDR,Genes
+Glycolysis/Gluconeogenesis,Up,1.20e-08,45
+mTOR signaling,Up,3.40e-07,38
+Inflammatory response,Up,5.60e-07,52
+Interferon signaling,Up,8.90e-06,34
+Toll-like receptor signaling,Up,1.20e-05,28
+NF-kB signaling,Up,2.30e-05,31
+Oxidative phosphorylation,Down,4.50e-05,22
+Fatty acid oxidation,Down,7.80e-04,15

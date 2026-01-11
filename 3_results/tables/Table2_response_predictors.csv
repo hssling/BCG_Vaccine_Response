@@ -1,0 +1,9 @@
+Marker,Odds Ratio,P-value,Association
+Monocyte H3K4me3 at TNF locus,2.8,0.001,High response
+Baseline IL-1beta production,2.1,0.003,High response
+STAT1 expression,1.9,0.01,High response
+Glycolytic capacity,1.7,0.02,High response
+Linoleic acid levels,1.5,0.04,High response
+High baseline inflammation,0.4,0.002,Low response
+Age > 60 years,0.5,0.01,Low response
+Prior TB exposure,0.6,0.03,Low response
