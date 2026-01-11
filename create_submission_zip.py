@@ -11,6 +11,8 @@ def create_submission_zip():
         base_dir / "4_manuscript/Manuscript_BCG_Systematic_Review_FINAL_SUBMISSION_v2.docx",
         base_dir / "4_manuscript/Cover_Letter_PathogensImmunity.docx",
         base_dir / "4_manuscript/TitlePage_PathogensImmunity.docx",
+        base_dir / "4_manuscript/Supplementary_Materials.docx",
+        base_dir / "3_results/figures/Graphical_Abstract.png",
         base_dir / "3_results/figures/Fig1_Heterogeneity_Distribution.png",
         base_dir / "3_results/figures/Fig2_IL1B_Meta_Analysis_ForestPlot.png",
         base_dir / "3_results/tables/Table1_Included_Studies.csv",

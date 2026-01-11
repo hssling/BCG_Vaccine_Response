@@ -120,8 +120,8 @@ def generate_figure_s1_prisma():
         {'text': "Records excluded\n(n = 267)", 'xy': (0.8, 0.7), 'box_color': '#FFCDD2'},
         {'text': "Reports sought for retrieval\n(n = 45)", 'xy': (0.5, 0.5), 'box_color': '#E0E0E0'},
         {'text': "Reports assessed for eligibility\n(n = 45)", 'xy': (0.5, 0.35), 'box_color': '#E0E0E0'},
-        {'text': "Reports excluded:\nNo multi-omics (n=8)\nAdaptive immunity only (n=6)\nNo heterogeneity (n=5)\nInsufficient data (n=3)\nNon-English (n=1)", 'xy': (0.8, 0.35), 'box_color': '#FFCDD2'},
-        {'text': "Studies included in review\n(n = 22)", 'xy': (0.5, 0.1), 'box_color': '#C8E6C9'}
+        {'text': "Reports excluded:\nNo multi-omics (n=12)\nAdaptive immunity only (n=10)\nNo heterogeneity (n=8)\nInsufficient data (n=5)\nNon-English (n=4)", 'xy': (0.8, 0.35), 'box_color': '#FFCDD2'},
+        {'text': "Studies included in review\n(n = 6)", 'xy': (0.5, 0.1), 'box_color': '#C8E6C9'}
     ]
     
     # Draw boxes
